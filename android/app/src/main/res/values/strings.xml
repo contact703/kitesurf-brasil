@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">KiteSurf Brasil</string>
+    <string name="nav_chat">Chat</string>
+    <string name="nav_spots">Spots</string>
+    <string name="nav_classifieds">Classificados</string>
+    <string name="nav_profile">Perfil</string>
+</resources>
