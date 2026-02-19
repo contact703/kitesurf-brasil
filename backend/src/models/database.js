@@ -1,11 +1,17 @@
 const Database = require('better-sqlite3');
 const path = require('path');
+const fs = require('fs');
 
 const dbPath = process.env.DATABASE_PATH || path.join(__dirname, '../../data/kitesurf.db');
 let db;
 
 function getDb() {
   if (!db) {
+    // Criar diretório se não existir
+    const dbDir = path.dirname(dbPath);
+    if (!fs.existsSync(dbDir)) {
+      fs.mkdirSync(dbDir, { recursive: true });
+    }
     db = new Database(dbPath);
     db.pragma('journal_mode = WAL');
   }

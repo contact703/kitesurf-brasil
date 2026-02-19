@@ -7,8 +7,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 object ApiClient {
-    // Backend online via localhost.run tunnel
-    private const val BASE_URL = "https://e44e9591f02e93.lhr.life/api/"
+    // Backend PRODUCTION no Railway
+    private const val BASE_URL = "https://kitesurf-brasil-api-production.up.railway.app/api/"
     
     private val loggingInterceptor = HttpLoggingInterceptor().apply {
         level = HttpLoggingInterceptor.Level.BODY
