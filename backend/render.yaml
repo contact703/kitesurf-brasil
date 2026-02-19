@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: kitesurf-api
+    env: node
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: PORT
+        value: 3000
+      - key: AI_PROVIDER
+        value: openrouter
+      - key: AI_MODEL
+        value: nvidia/nemotron-nano-9b-v2:free
+      - key: AI_API_KEY
+        sync: false
