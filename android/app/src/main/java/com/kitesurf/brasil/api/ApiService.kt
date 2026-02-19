@@ -23,17 +23,17 @@ data class User(
 )
 
 data class Post(
-    val id: Int,
-    val user_id: Int,
-    val content: String?,
-    val media_url: List<String>? = null,
+    val id: Int = 0,
+    val user_id: Int = 0,
+    val content: String? = null,
+    val media_url: Any? = null,
     val spot_id: Int? = null,
     val spot_name: String? = null,
     val likes_count: Int = 0,
     val comments_count: Int = 0,
-    val created_at: String,
-    val name: String,
-    val username: String,
+    val created_at: String? = null,
+    val name: String? = null,
+    val username: String? = null,
     val avatar_url: String? = null,
     val verified: Int = 0,
     val liked_by_user: Boolean = false

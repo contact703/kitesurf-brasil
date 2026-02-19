@@ -58,15 +58,18 @@ class FeedFragment : Fragment() {
         scope.launch {
             try {
                 val response = withContext(Dispatchers.IO) {
-                    ApiClient.api.getFeed(MainActivity.currentUserId)
+                    ApiClient.api.getFeed(null)  // Load all posts first
                 }
                 if (response.isSuccessful && response.body() != null) {
                     posts.clear()
                     posts.addAll(response.body()!!)
                     adapter.notifyDataSetChanged()
+                } else {
+                    Toast.makeText(context, "Erro: ${response.code()}", Toast.LENGTH_SHORT).show()
                 }
             } catch (e: Exception) {
-                Toast.makeText(context, "Erro ao carregar feed", Toast.LENGTH_SHORT).show()
+                e.printStackTrace()
+                Toast.makeText(context, "Erro: ${e.message}", Toast.LENGTH_LONG).show()
             } finally {
                 progressBar.visibility = View.GONE
             }
@@ -104,8 +107,8 @@ class FeedAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val post = posts[position]
         
-        holder.name.text = post.name
-        holder.username.text = "@${post.username}"
+        holder.name.text = post.name ?: "Usuário"
+        holder.username.text = "@${post.username ?: "user"}"
         holder.content.text = post.content ?: ""
         holder.likes.text = "${post.likes_count}"
         holder.comments.text = "${post.comments_count}"
@@ -118,10 +121,12 @@ class FeedAdapter(
             holder.spotName.visibility = View.GONE
         }
         
-        post.avatar_url?.let {
+        if (!post.avatar_url.isNullOrEmpty()) {
             Glide.with(holder.itemView.context)
-                .load(it)
+                .load(post.avatar_url)
                 .circleCrop()
+                .placeholder(R.drawable.circle_bg)
+                .error(R.drawable.circle_bg)
                 .into(holder.avatar)
         }
         

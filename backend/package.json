@@ -1,11 +1,12 @@
 {
   "name": "kitesurf-backend",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Backend API para o app KiteSurf Brasil",
   "main": "src/server.js",
   "scripts": {
-    "start": "node src/server.js",
-    "dev": "nodemon src/server.js"
+    "start": "node src/seed.js && node src/server.js",
+    "dev": "nodemon src/server.js",
+    "seed": "node src/seed.js"
   },
   "dependencies": {
     "express": "^4.18.2",
@@ -16,5 +17,8 @@
   },
   "devDependencies": {
     "nodemon": "^3.0.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   }
 }
