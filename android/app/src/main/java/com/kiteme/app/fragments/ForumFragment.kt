@@ -1,4 +1,4 @@
-package com.kitesurf.brasil.fragments
+package com.kiteme.app.fragments
 
 import android.graphics.Color
 import android.os.Bundle
@@ -9,11 +9,11 @@ import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.kitesurf.brasil.MainActivity
-import com.kitesurf.brasil.R
-import com.kitesurf.brasil.api.ApiClient
-import com.kitesurf.brasil.api.ForumCategory
-import com.kitesurf.brasil.api.ForumTopic
+import com.kiteme.app.MainActivity
+import com.kiteme.app.R
+import com.kiteme.app.api.ApiClient
+import com.kiteme.app.api.ForumCategory
+import com.kiteme.app.api.ForumTopic
 import kotlinx.coroutines.*
 
 class ForumFragment : Fragment() {
@@ -69,15 +69,13 @@ class ForumFragment : Fragment() {
                     categories.addAll(response.body()!!)
                     adapter.notifyDataSetChanged()
                 }
-            } catch (e: Exception) {
-                // Silent fail
-            }
+            } catch (e: Exception) {}
         }
     }
     
     private fun loadRecentTopics(adapter: TopicsAdapter) {
         progressBar.visibility = View.VISIBLE
-        txtSection.text = "🔥 Discussões Recentes"
+        txtSection.text = "🔥 ${getString(R.string.forum_title)}"
         
         scope.launch {
             try {
@@ -90,7 +88,7 @@ class ForumFragment : Fragment() {
                     adapter.notifyDataSetChanged()
                 }
             } catch (e: Exception) {
-                Toast.makeText(context, "Erro ao carregar fórum", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, getString(R.string.forum_error), Toast.LENGTH_SHORT).show()
             } finally {
                 progressBar.visibility = View.GONE
             }
@@ -112,7 +110,7 @@ class ForumFragment : Fragment() {
                     recyclerTopics.adapter?.notifyDataSetChanged()
                 }
             } catch (e: Exception) {
-                Toast.makeText(context, "Erro ao carregar categoria", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, getString(R.string.forum_error), Toast.LENGTH_SHORT).show()
             } finally {
                 progressBar.visibility = View.GONE
             }
@@ -178,6 +176,7 @@ class TopicsAdapter(
     
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val topic = topics[position]
+        val context = holder.itemView.context
         
         holder.title.text = topic.title
         holder.author.text = "por @${topic.author_username ?: "anônimo"}"

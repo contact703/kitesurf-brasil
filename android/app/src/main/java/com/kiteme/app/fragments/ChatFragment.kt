@@ -1,4 +1,4 @@
-package com.kitesurf.brasil.fragments
+package com.kiteme.app.fragments
 
 import android.Manifest
 import android.content.Intent
@@ -17,9 +17,10 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.kitesurf.brasil.R
-import com.kitesurf.brasil.api.ApiClient
-import com.kitesurf.brasil.api.ChatRequest
+import com.kiteme.app.R
+import com.kiteme.app.api.ApiClient
+import com.kiteme.app.api.ChatRequest
+import com.kiteme.app.utils.LocaleHelper
 import kotlinx.coroutines.*
 import java.util.*
 
@@ -38,11 +39,9 @@ class ChatFragment : Fragment(), TextToSpeech.OnInitListener {
     private val scope = CoroutineScope(Dispatchers.Main + Job())
     private var sessionId: String? = null
     
-    // Text-to-Speech
     private var tts: TextToSpeech? = null
     private var ttsEnabled = true
     
-    // Speech-to-Text
     private var speechRecognizer: SpeechRecognizer? = null
     private var isListening = false
     
@@ -67,10 +66,8 @@ class ChatFragment : Fragment(), TextToSpeech.OnInitListener {
         progressBar = view.findViewById(R.id.progress_bar)
         voiceIndicator = view.findViewById(R.id.voice_indicator)
         
-        // Initialize TTS
         tts = TextToSpeech(context, this)
         
-        // Initialize Speech Recognizer
         if (SpeechRecognizer.isRecognitionAvailable(requireContext())) {
             speechRecognizer = SpeechRecognizer.createSpeechRecognizer(requireContext())
             setupSpeechRecognizer()
@@ -82,23 +79,12 @@ class ChatFragment : Fragment(), TextToSpeech.OnInitListener {
         }
         recyclerView.adapter = adapter
         
-        // Welcome message
-        messages.add(ChatMessage(
-            "🏄 Olá! Eu sou o KiteBot, seu assistente de kitesurf!\n\n" +
-            "Posso te ajudar com:\n" +
-            "• Dicas de equipamentos\n" +
-            "• Informações sobre spots\n" +
-            "• Técnicas e manobras\n" +
-            "• Condições de vento\n\n" +
-            "Fale ou digite sua pergunta!", 
-            false
-        ))
+        // Welcome message - localized
+        messages.add(ChatMessage(getString(R.string.chat_welcome), false))
         adapter.notifyDataSetChanged()
         
         btnSend.setOnClickListener { sendMessage() }
-        
         btnVoice.setOnClickListener { toggleVoiceInput() }
-        
         btnSound.setOnClickListener { toggleTTS() }
         
         inputMessage.setOnEditorActionListener { _, _, _ ->
@@ -106,12 +92,16 @@ class ChatFragment : Fragment(), TextToSpeech.OnInitListener {
             true
         }
         
+        // Set hint from resources
+        inputMessage.hint = getString(R.string.chat_hint)
+        
         updateSoundButton()
     }
     
     override fun onInit(status: Int) {
         if (status == TextToSpeech.SUCCESS) {
-            tts?.language = Locale("pt", "BR")
+            val lang = LocaleHelper.getLanguage(requireContext())
+            tts?.language = if (lang == "en") Locale.US else Locale("pt", "BR")
         }
     }
     
@@ -119,18 +109,16 @@ class ChatFragment : Fragment(), TextToSpeech.OnInitListener {
         speechRecognizer?.setRecognitionListener(object : RecognitionListener {
             override fun onReadyForSpeech(params: Bundle?) {
                 voiceIndicator.visibility = View.VISIBLE
-                voiceIndicator.text = "🎤 Ouvindo..."
+                voiceIndicator.text = getString(R.string.chat_listening)
                 btnVoice.setImageResource(R.drawable.ic_mic_on)
             }
             
             override fun onBeginningOfSpeech() {}
-            
             override fun onRmsChanged(rmsdB: Float) {}
-            
             override fun onBufferReceived(buffer: ByteArray?) {}
             
             override fun onEndOfSpeech() {
-                voiceIndicator.text = "⏳ Processando..."
+                voiceIndicator.text = getString(R.string.chat_processing)
                 isListening = false
                 btnVoice.setImageResource(R.drawable.ic_mic)
             }
@@ -141,9 +129,9 @@ class ChatFragment : Fragment(), TextToSpeech.OnInitListener {
                 btnVoice.setImageResource(R.drawable.ic_mic)
                 
                 val errorMsg = when (error) {
-                    SpeechRecognizer.ERROR_NO_MATCH -> "Não entendi, tente novamente"
-                    SpeechRecognizer.ERROR_NETWORK -> "Erro de conexão"
-                    else -> "Erro ao reconhecer voz"
+                    SpeechRecognizer.ERROR_NO_MATCH -> getString(R.string.chat_voice_error_no_match)
+                    SpeechRecognizer.ERROR_NETWORK -> getString(R.string.chat_voice_error_network)
+                    else -> getString(R.string.chat_voice_error_generic)
                 }
                 Toast.makeText(context, errorMsg, Toast.LENGTH_SHORT).show()
             }
@@ -169,11 +157,7 @@ class ChatFragment : Fragment(), TextToSpeech.OnInitListener {
     }
     
     private fun toggleVoiceInput() {
-        if (isListening) {
-            stopListening()
-        } else {
-            startListening()
-        }
+        if (isListening) stopListening() else startListening()
     }
     
     private fun startListening() {
@@ -187,9 +171,12 @@ class ChatFragment : Fragment(), TextToSpeech.OnInitListener {
             return
         }
         
+        val lang = LocaleHelper.getLanguage(requireContext())
+        val speechLang = if (lang == "en") "en-US" else "pt-BR"
+        
         val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
             putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
-            putExtra(RecognizerIntent.EXTRA_LANGUAGE, "pt-BR")
+            putExtra(RecognizerIntent.EXTRA_LANGUAGE, speechLang)
             putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, true)
             putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 1)
         }
@@ -209,12 +196,10 @@ class ChatFragment : Fragment(), TextToSpeech.OnInitListener {
         ttsEnabled = !ttsEnabled
         updateSoundButton()
         
-        val msg = if (ttsEnabled) "🔊 Som ativado" else "🔇 Som desativado"
+        val msg = if (ttsEnabled) getString(R.string.chat_sound_on) else getString(R.string.chat_sound_off)
         Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
         
-        if (!ttsEnabled) {
-            tts?.stop()
-        }
+        if (!ttsEnabled) tts?.stop()
     }
     
     private fun updateSoundButton() {
@@ -225,7 +210,6 @@ class ChatFragment : Fragment(), TextToSpeech.OnInitListener {
     
     private fun speakText(text: String) {
         if (ttsEnabled && tts != null) {
-            // Remove emojis for better TTS
             val cleanText = text.replace(Regex("[\\p{So}\\p{Cn}]"), "")
             tts?.speak(cleanText, TextToSpeech.QUEUE_FLUSH, null, "response")
         }
@@ -235,7 +219,6 @@ class ChatFragment : Fragment(), TextToSpeech.OnInitListener {
         val text = inputMessage.text.toString().trim()
         if (text.isEmpty()) return
         
-        // Stop TTS if playing
         tts?.stop()
         
         inputMessage.text.clear()
@@ -261,7 +244,6 @@ class ChatFragment : Fragment(), TextToSpeech.OnInitListener {
                     adapter.notifyItemInserted(messages.size - 1)
                     recyclerView.scrollToPosition(messages.size - 1)
                     
-                    // Speak the response
                     speakText(responseText)
                 } else {
                     showError()
@@ -277,8 +259,7 @@ class ChatFragment : Fragment(), TextToSpeech.OnInitListener {
     }
     
     private fun showError() {
-        val errorMsg = "Ops! Não consegui processar sua mensagem. Tente novamente!"
-        messages.add(ChatMessage(errorMsg, false))
+        messages.add(ChatMessage(getString(R.string.chat_error), false))
         adapter.notifyItemInserted(messages.size - 1)
     }
     

@@ -1,4 +1,4 @@
-package com.kitesurf.brasil.fragments
+package com.kiteme.app.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,10 +9,10 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.kitesurf.brasil.MainActivity
-import com.kitesurf.brasil.R
-import com.kitesurf.brasil.api.ApiClient
-import com.kitesurf.brasil.api.Post
+import com.kiteme.app.MainActivity
+import com.kiteme.app.R
+import com.kiteme.app.api.ApiClient
+import com.kiteme.app.api.Post
 import kotlinx.coroutines.*
 
 class FeedFragment : Fragment() {
@@ -33,7 +33,6 @@ class FeedFragment : Fragment() {
         recyclerView = view.findViewById(R.id.recycler_feed)
         progressBar = view.findViewById(R.id.progress_bar)
         
-        // Quick access buttons
         view.findViewById<LinearLayout>(R.id.btn_messages)?.setOnClickListener {
             (activity as? MainActivity)?.navigateToMessages()
         }
@@ -58,18 +57,18 @@ class FeedFragment : Fragment() {
         scope.launch {
             try {
                 val response = withContext(Dispatchers.IO) {
-                    ApiClient.api.getFeed(null)  // Load all posts first
+                    ApiClient.api.getFeed(null)
                 }
                 if (response.isSuccessful && response.body() != null) {
                     posts.clear()
                     posts.addAll(response.body()!!)
                     adapter.notifyDataSetChanged()
                 } else {
-                    Toast.makeText(context, "Erro: ${response.code()}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, getString(R.string.feed_error), Toast.LENGTH_SHORT).show()
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
-                Toast.makeText(context, "Erro: ${e.message}", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, getString(R.string.feed_error), Toast.LENGTH_LONG).show()
             } finally {
                 progressBar.visibility = View.GONE
             }
@@ -106,8 +105,9 @@ class FeedAdapter(
     
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val post = posts[position]
+        val context = holder.itemView.context
         
-        holder.name.text = post.name ?: "Usuário"
+        holder.name.text = post.name ?: context.getString(R.string.user)
         holder.username.text = "@${post.username ?: "user"}"
         holder.content.text = post.content ?: ""
         holder.likes.text = "${post.likes_count}"
@@ -122,7 +122,7 @@ class FeedAdapter(
         }
         
         if (!post.avatar_url.isNullOrEmpty()) {
-            Glide.with(holder.itemView.context)
+            Glide.with(context)
                 .load(post.avatar_url)
                 .circleCrop()
                 .placeholder(R.drawable.circle_bg)

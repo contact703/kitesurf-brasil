@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App Name -->
+    <string name="app_name">KiteMe</string>
+    
+    <!-- Navigation -->
+    <string name="nav_feed">Feed</string>
+    <string name="nav_spots">Spots</string>
+    <string name="nav_classifieds">Marketplace</string>
+    <string name="nav_chat">Chat</string>
+    <string name="nav_profile">Profile</string>
+    
+    <!-- Language Selection -->
+    <string name="language_select_title">Choose your language</string>
+    <string name="language_select_subtitle">You can change this later in settings</string>
+    <string name="language_portuguese">Português (BR)</string>
+    <string name="language_english">English</string>
+    <string name="language_continue">Continue</string>
+    
+    <!-- Settings -->
+    <string name="settings">Settings</string>
+    <string name="settings_language">Language</string>
+    <string name="settings_notifications">Notifications</string>
+    <string name="settings_about">About the App</string>
+    <string name="settings_privacy">Privacy Policy</string>
+    <string name="settings_logout">Logout</string>
+    <string name="settings_version">Version</string>
+    
+    <!-- Chat / KiteBot -->
+    <string name="chat_welcome">🏄 Hi! I\'m KiteBot, your kitesurfing assistant!\n\nI can help you with:\n• Equipment tips\n• Spot information\n• Techniques and tricks\n• Wind conditions\n\nSpeak or type your question!</string>
+    <string name="chat_hint">Type your message...</string>
+    <string name="chat_error">Oops! I couldn\'t process your message. Please try again!</string>
+    <string name="chat_listening">🎤 Listening...</string>
+    <string name="chat_processing">⏳ Processing...</string>
+    <string name="chat_voice_error_no_match">Didn\'t understand, try again</string>
+    <string name="chat_voice_error_network">Connection error</string>
+    <string name="chat_voice_error_generic">Voice recognition error</string>
+    <string name="chat_sound_on">🔊 Sound on</string>
+    <string name="chat_sound_off">🔇 Sound off</string>
+    
+    <!-- Feed -->
+    <string name="feed_title">Feed</string>
+    <string name="feed_messages">Messages</string>
+    <string name="feed_forum">Forum</string>
+    <string name="feed_accommodations">Accommodations</string>
+    <string name="feed_empty">No posts yet</string>
+    <string name="feed_error">Error loading feed</string>
+    
+    <!-- Spots -->
+    <string name="spots_title">Spots</string>
+    <string name="spots_empty">No spots found</string>
+    <string name="spots_error">Error loading spots</string>
+    <string name="spots_best_months">📅 Best months</string>
+    <string name="spots_wind_direction">💨 Wind direction</string>
+    <string name="spots_difficulty">Difficulty</string>
+    <string name="spots_all_year">All year</string>
+    <string name="spots_reviews">reviews</string>
+    
+    <!-- Difficulty Levels -->
+    <string name="level_beginner">🟢 Beginner</string>
+    <string name="level_intermediate">🟡 Intermediate</string>
+    <string name="level_advanced">🔴 Advanced</string>
+    <string name="level_professional">🏆 Professional</string>
+    <string name="level_all">🔵 All levels</string>
+    
+    <!-- Classifieds -->
+    <string name="classifieds_title">Marketplace</string>
+    <string name="classifieds_all">All</string>
+    <string name="classifieds_kites">🪁 Kites</string>
+    <string name="classifieds_boards">🏄 Boards</string>
+    <string name="classifieds_harnesses">🎽 Harnesses</string>
+    <string name="classifieds_accessories">🔧 Accessories</string>
+    <string name="classifieds_clothes">👕 Clothes</string>
+    <string name="classifieds_lessons">📚 Lessons</string>
+    <string name="classifieds_empty">No listings found</string>
+    <string name="classifieds_error">Error loading marketplace</string>
+    <string name="classifieds_contact">Contact seller</string>
+    <string name="classifieds_price_consult">Contact for price</string>
+    
+    <!-- Conditions -->
+    <string name="condition_new">✨ New</string>
+    <string name="condition_like_new">👍 Like new</string>
+    <string name="condition_used">📦 Used</string>
+    
+    <!-- Profile -->
+    <string name="profile_title">Profile</string>
+    <string name="profile_followers">Followers</string>
+    <string name="profile_following">Following</string>
+    <string name="profile_posts">Posts</string>
+    <string name="profile_follow">Follow</string>
+    <string name="profile_following_btn">Following</string>
+    <string name="profile_message">Message</string>
+    <string name="profile_edit">Edit Profile</string>
+    <string name="profile_error">Error loading profile</string>
+    <string name="profile_follow_error">Error following user</string>
+    
+    <!-- Forum -->
+    <string name="forum_title">Forum</string>
+    <string name="forum_empty">No topics found</string>
+    <string name="forum_error">Error loading forum</string>
+    <string name="forum_new_topic">New Topic</string>
+    <string name="forum_replies">replies</string>
+    
+    <!-- Messages -->
+    <string name="messages_title">Messages</string>
+    <string name="messages_empty">No conversations yet</string>
+    <string name="messages_error">Error loading messages</string>
+    
+    <!-- Accommodations -->
+    <string name="accommodations_title">Accommodations</string>
+    <string name="accommodations_empty">No accommodations found</string>
+    <string name="accommodations_error">Error loading accommodations</string>
+    <string name="accommodations_contact">Contact</string>
+    <string name="accommodations_per_night">/ night</string>
+    
+    <!-- Common -->
+    <string name="loading">Loading...</string>
+    <string name="error">Error</string>
+    <string name="retry">Try again</string>
+    <string name="cancel">Cancel</string>
+    <string name="save">Save</string>
+    <string name="delete">Delete</string>
+    <string name="confirm">Confirm</string>
+    <string name="user">User</string>
+    <string name="na">N/A</string>
+</resources>

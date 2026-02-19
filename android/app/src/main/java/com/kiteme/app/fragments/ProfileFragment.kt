@@ -1,4 +1,4 @@
-package com.kitesurf.brasil.fragments
+package com.kiteme.app.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,11 +9,11 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.kitesurf.brasil.MainActivity
-import com.kitesurf.brasil.R
-import com.kitesurf.brasil.api.ApiClient
-import com.kitesurf.brasil.api.Post
-import com.kitesurf.brasil.api.User
+import com.kiteme.app.MainActivity
+import com.kiteme.app.R
+import com.kiteme.app.api.ApiClient
+import com.kiteme.app.api.Post
+import com.kiteme.app.api.User
 import kotlinx.coroutines.*
 
 class ProfileFragment : Fragment() {
@@ -44,6 +44,11 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         loadProfile(view)
+        
+        // Settings button
+        view.findViewById<ImageButton>(R.id.btn_settings)?.setOnClickListener {
+            (activity as? MainActivity)?.navigateToSettings()
+        }
     }
     
     private fun loadProfile(view: View) {
@@ -60,7 +65,7 @@ class ProfileFragment : Fragment() {
                     loadUserPosts(view)
                 }
             } catch (e: Exception) {
-                Toast.makeText(context, "Erro ao carregar perfil", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, getString(R.string.profile_error), Toast.LENGTH_SHORT).show()
             } finally {
                 progressBar.visibility = View.GONE
             }
@@ -74,9 +79,9 @@ class ProfileFragment : Fragment() {
         view.findViewById<TextView>(R.id.txt_location).text = user.location ?: ""
         view.findViewById<TextView>(R.id.txt_level).text = getLevelEmoji(user.level)
         
-        view.findViewById<TextView>(R.id.txt_followers).text = "${user.followers_count}\nSeguidores"
-        view.findViewById<TextView>(R.id.txt_following).text = "${user.following_count}\nSeguindo"
-        view.findViewById<TextView>(R.id.txt_posts_count).text = "${user.posts_count}\nPosts"
+        view.findViewById<TextView>(R.id.txt_followers).text = "${user.followers_count}\n${getString(R.string.profile_followers)}"
+        view.findViewById<TextView>(R.id.txt_following).text = "${user.following_count}\n${getString(R.string.profile_following)}"
+        view.findViewById<TextView>(R.id.txt_posts_count).text = "${user.posts_count}\n${getString(R.string.profile_posts)}"
         
         view.findViewById<ImageView>(R.id.img_verified).visibility = 
             if (user.verified == 1) View.VISIBLE else View.GONE
@@ -88,17 +93,16 @@ class ProfileFragment : Fragment() {
                 .into(view.findViewById(R.id.img_avatar))
         }
         
-        // Follow/Message buttons
         val btnFollow = view.findViewById<Button>(R.id.btn_follow)
         val btnMessage = view.findViewById<Button>(R.id.btn_message)
         
         if (userId == MainActivity.currentUserId) {
             btnFollow.visibility = View.GONE
-            btnMessage.text = "Editar Perfil"
+            btnMessage.text = getString(R.string.profile_edit)
         } else {
             btnFollow.visibility = View.VISIBLE
-            btnFollow.text = if (user.is_following) "Seguindo" else "Seguir"
-            btnMessage.text = "Mensagem"
+            btnFollow.text = if (user.is_following) getString(R.string.profile_following_btn) else getString(R.string.profile_follow)
+            btnMessage.text = getString(R.string.profile_message)
             
             btnFollow.setOnClickListener {
                 toggleFollow(btnFollow, user)
@@ -109,7 +113,6 @@ class ProfileFragment : Fragment() {
             }
         }
         
-        // Instagram link
         user.instagram?.let { ig ->
             view.findViewById<TextView>(R.id.txt_instagram)?.apply {
                 text = ig
@@ -125,10 +128,10 @@ class ProfileFragment : Fragment() {
                     ApiClient.api.followUser(userId, mapOf("follower_id" to MainActivity.currentUserId))
                 }
                 if (response.isSuccessful && response.body() != null) {
-                    btn.text = if (response.body()!!.following) "Seguindo" else "Seguir"
+                    btn.text = if (response.body()!!.following) getString(R.string.profile_following_btn) else getString(R.string.profile_follow)
                 }
             } catch (e: Exception) {
-                Toast.makeText(context, "Erro ao seguir", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, getString(R.string.profile_follow_error), Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -157,10 +160,10 @@ class ProfileFragment : Fragment() {
     
     private fun getLevelEmoji(level: String): String {
         return when (level.lowercase()) {
-            "iniciante" -> "🟢 Iniciante"
-            "intermediário", "intermediario" -> "🟡 Intermediário"
-            "avançado", "avancado" -> "🔴 Avançado"
-            "profissional" -> "🏆 Profissional"
+            "iniciante", "beginner" -> getString(R.string.level_beginner)
+            "intermediário", "intermediario", "intermediate" -> getString(R.string.level_intermediate)
+            "avançado", "avancado", "advanced" -> getString(R.string.level_advanced)
+            "profissional", "professional" -> getString(R.string.level_professional)
             else -> level
         }
     }

@@ -1,4 +1,4 @@
-package com.kitesurf.brasil.fragments
+package com.kiteme.app.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,10 +8,10 @@ import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.kitesurf.brasil.MainActivity
-import com.kitesurf.brasil.R
-import com.kitesurf.brasil.api.ApiClient
-import com.kitesurf.brasil.api.Classified
+import com.kiteme.app.MainActivity
+import com.kiteme.app.R
+import com.kiteme.app.api.ApiClient
+import com.kiteme.app.api.Classified
 import kotlinx.coroutines.*
 import java.text.NumberFormat
 import java.util.*
@@ -25,15 +25,6 @@ class ClassifiedsFragment : Fragment() {
     private var selectedCategory: String? = null
     private val scope = CoroutineScope(Dispatchers.Main + Job())
     private lateinit var adapter: ClassifiedsAdapter
-    
-    private val categories = listOf(
-        "kites" to "🪁 Kites",
-        "pranchas" to "🏄 Pranchas", 
-        "trapezios" to "🎽 Trapézios",
-        "acessorios" to "🔧 Acessórios",
-        "roupas" to "👕 Roupas",
-        "aulas" to "📚 Aulas"
-    )
     
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_classifieds, container, false)
@@ -58,13 +49,20 @@ class ClassifiedsFragment : Fragment() {
     }
     
     private fun setupCategoryChips() {
-        // Add "All" chip
-        val allChip = createChip("Todos", null)
-        allChip.isSelected = true
-        chipGroup.addView(allChip)
+        val categories = listOf(
+            null to getString(R.string.classifieds_all),
+            "kites" to getString(R.string.classifieds_kites),
+            "pranchas" to getString(R.string.classifieds_boards),
+            "trapezios" to getString(R.string.classifieds_harnesses),
+            "acessorios" to getString(R.string.classifieds_accessories),
+            "roupas" to getString(R.string.classifieds_clothes),
+            "aulas" to getString(R.string.classifieds_lessons)
+        )
         
-        categories.forEach { (key, label) ->
-            chipGroup.addView(createChip(label, key))
+        categories.forEachIndexed { index, (key, label) ->
+            val chip = createChip(label, key)
+            if (index == 0) chip.isSelected = true
+            chipGroup.addView(chip)
         }
     }
     
@@ -76,7 +74,6 @@ class ClassifiedsFragment : Fragment() {
             setTextColor(resources.getColor(R.color.white, null))
             setOnClickListener {
                 selectedCategory = category
-                // Update selection visual
                 for (i in 0 until chipGroup.childCount) {
                     chipGroup.getChildAt(i).isSelected = false
                 }
@@ -99,7 +96,7 @@ class ClassifiedsFragment : Fragment() {
                     adapter.notifyDataSetChanged()
                 }
             } catch (e: Exception) {
-                Toast.makeText(context, "Erro ao carregar classificados", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, getString(R.string.classifieds_error), Toast.LENGTH_SHORT).show()
             } finally {
                 progressBar.visibility = View.GONE
             }
@@ -134,33 +131,34 @@ class ClassifiedsAdapter(
     
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = classifieds[position]
+        val context = holder.itemView.context
         
         holder.title.text = item.title
-        holder.price.text = item.price?.let { currencyFormat.format(it) } ?: "Consultar"
-        holder.category.text = getCategoryEmoji(item.category)
-        holder.condition.text = getConditionLabel(item.condition)
+        holder.price.text = item.price?.let { currencyFormat.format(it) } ?: context.getString(R.string.classifieds_price_consult)
+        holder.category.text = getCategoryEmoji(context, item.category)
+        holder.condition.text = getConditionLabel(context, item.condition)
         holder.location.text = "📍 ${item.location ?: "Brasil"}"
         
         holder.itemView.setOnClickListener { onClick(item) }
     }
     
-    private fun getCategoryEmoji(cat: String): String {
+    private fun getCategoryEmoji(context: android.content.Context, cat: String): String {
         return when (cat) {
             "kites" -> "🪁 Kite"
-            "pranchas" -> "🏄 Prancha"
-            "trapezios" -> "🎽 Trapézio"
-            "acessorios" -> "🔧 Acessório"
-            "roupas" -> "👕 Roupa"
-            "aulas" -> "📚 Aula"
+            "pranchas" -> "🏄 ${context.getString(R.string.classifieds_boards).replace("🏄 ", "")}"
+            "trapezios" -> "🎽 ${context.getString(R.string.classifieds_harnesses).replace("🎽 ", "")}"
+            "acessorios" -> "🔧 ${context.getString(R.string.classifieds_accessories).replace("🔧 ", "")}"
+            "roupas" -> "👕 ${context.getString(R.string.classifieds_clothes).replace("👕 ", "")}"
+            "aulas" -> "📚 ${context.getString(R.string.classifieds_lessons).replace("📚 ", "")}"
             else -> cat
         }
     }
     
-    private fun getConditionLabel(cond: String?): String {
+    private fun getConditionLabel(context: android.content.Context, cond: String?): String {
         return when (cond?.lowercase()) {
-            "novo" -> "✨ Novo"
-            "seminovo" -> "👍 Seminovo"
-            "usado" -> "📦 Usado"
+            "novo", "new" -> context.getString(R.string.condition_new)
+            "seminovo", "like new" -> context.getString(R.string.condition_like_new)
+            "usado", "used" -> context.getString(R.string.condition_used)
             else -> cond ?: ""
         }
     }

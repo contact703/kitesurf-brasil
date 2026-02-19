@@ -1,4 +1,4 @@
-package com.kitesurf.brasil.fragments
+package com.kiteme.app.fragments
 
 import android.content.Intent
 import android.net.Uri
@@ -10,9 +10,9 @@ import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.kitesurf.brasil.R
-import com.kitesurf.brasil.api.ApiClient
-import com.kitesurf.brasil.api.Accommodation
+import com.kiteme.app.R
+import com.kiteme.app.api.ApiClient
+import com.kiteme.app.api.Accommodation
 import kotlinx.coroutines.*
 import java.text.NumberFormat
 import java.util.*
@@ -39,7 +39,6 @@ class AccommodationsFragment : Fragment() {
         }
         
         val adapter = AccommodationsAdapter(accommodations) { acc ->
-            // Open WhatsApp
             acc.contact_whatsapp?.let { phone ->
                 val url = "https://wa.me/$phone"
                 startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
@@ -64,7 +63,7 @@ class AccommodationsFragment : Fragment() {
                     adapter.notifyDataSetChanged()
                 }
             } catch (e: Exception) {
-                Toast.makeText(context, "Erro ao carregar pousadas", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, getString(R.string.accommodations_error), Toast.LENGTH_SHORT).show()
             } finally {
                 progressBar.visibility = View.GONE
             }
@@ -101,6 +100,7 @@ class AccommodationsAdapter(
     
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val acc = items[position]
+        val context = holder.itemView.context
         
         holder.name.text = acc.name
         holder.location.text = "📍 ${acc.location}, ${acc.state}"
@@ -110,12 +110,13 @@ class AccommodationsAdapter(
         
         val priceText = when {
             acc.price_min != null && acc.price_max != null -> 
-                "${currencyFormat.format(acc.price_min)} - ${currencyFormat.format(acc.price_max)}"
+                "${currencyFormat.format(acc.price_min)} - ${currencyFormat.format(acc.price_max)}${context.getString(R.string.accommodations_per_night)}"
             acc.price_range != null -> acc.price_range
-            else -> "Consultar"
+            else -> context.getString(R.string.classifieds_price_consult)
         }
         holder.price.text = "💰 $priceText"
         
+        holder.btnWhatsApp.text = context.getString(R.string.accommodations_contact)
         holder.btnWhatsApp.setOnClickListener { onWhatsApp(acc) }
     }
     

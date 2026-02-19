@@ -1,18 +1,33 @@
-# 📱 KiteSurf Brasil - Play Store Listing
+# 📱 KiteMe - Play Store Listing
 
 ## App Name (máx 30 chars)
+**PT-BR:**
 ```
-KiteSurf Brasil
+KiteMe - Kitesurf Social
+```
+
+**EN:**
+```
+KiteMe - Kitesurf Social
 ```
 
 ## Short Description (máx 80 chars)
+
+**PT-BR:**
 ```
 Rede social de kitesurf: spots, classificados, pousadas e chat com IA! 🏄‍♂️
 ```
 
-## Full Description (máx 4000 chars)
+**EN:**
 ```
-🏄‍♂️ O APP DEFINITIVO PARA KITESURFISTAS BRASILEIROS!
+Kitesurfing social network: spots, marketplace, lodging & AI chat! 🏄‍♂️
+```
+
+## Full Description (máx 4000 chars)
+
+**PT-BR:**
+```
+🏄‍♂️ O APP DEFINITIVO PARA KITESURFISTAS!
 
 Descubra os melhores spots do Brasil, conecte-se com outros atletas, compre e venda equipamentos, e tire todas as suas dúvidas com nosso assistente de IA especializado em kitesurf!
 
@@ -68,20 +83,94 @@ Descubra os melhores spots do Brasil, conecte-se com outros atletas, compre e ve
 📱 RECURSOS DO APP
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
+• 🌍 BILÍNGUE: Português e Inglês
 • Interface moderna e intuitiva
 • Modo escuro elegante
 • Chat com reconhecimento de voz
 • Respostas por áudio (Text-to-Speech)
-• 100% em português brasileiro
 • Funciona offline (visualização de dados salvos)
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-Baixe agora e faça parte da maior comunidade de kitesurf do Brasil! 🇧🇷
+Baixe agora e faça parte da maior comunidade de kitesurf! 🌊
 
-#kitesurf #kiteboarding #brasil #esporte #praia #vento #comunidade
+#kitesurf #kiteboarding #esporte #praia #vento #comunidade
 
 Desenvolvido por Titanio Films 🎬
+```
+
+**EN:**
+```
+🏄‍♂️ THE ULTIMATE APP FOR KITESURFERS!
+
+Discover the best spots in Brazil, connect with fellow athletes, buy and sell equipment, and get all your questions answered by our AI assistant specialized in kitesurfing!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🌊 MAIN FEATURES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📍 SPOTS - BRAZILIAN BEACHES
+• 10 most famous spots in Brazil already registered
+• Cumbuco, Jericoacoara, Barra Grande, Atins and more!
+• Wind information, difficulty level and best months
+• Community reviews
+
+🤳 SOCIAL NETWORK
+• Share photos and videos of your sessions
+• Follow other athletes and track their adventures
+• Like and comment on community posts
+• Direct messages between users
+
+🛒 MARKETPLACE
+• Buy and sell used equipment
+• Kites, boards, bars, harnesses and accessories
+• Filter by category and price
+• Direct contact via WhatsApp
+
+🏨 ACCOMMODATIONS
+• Guide to lodging near the spots
+• Prices, amenities and reviews
+• Direct WhatsApp contact
+• Community tips
+
+💬 DISCUSSION FORUM
+• Ask questions about equipment and techniques
+• Share experiences
+• Connect with athletes from all over Brazil
+
+🤖 KITEBOT - AI ASSISTANT
+• Chat with specialized artificial intelligence
+• Get answers about equipment, techniques and safety
+• Tips on spots and wind conditions
+• Voice support - speak and listen to responses!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🎯 WHO IS THE APP FOR?
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ Beginners who want to learn
+✅ Intermediate athletes looking to evolve
+✅ Professionals wanting to connect with the community
+✅ Anyone passionate about kitesurfing!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📱 APP FEATURES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+• 🌍 BILINGUAL: Portuguese and English
+• Modern and intuitive interface
+• Elegant dark mode
+• Chat with voice recognition
+• Audio responses (Text-to-Speech)
+• Works offline (saved data viewing)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Download now and join the biggest kitesurfing community! 🌊
+
+#kitesurf #kiteboarding #sports #beach #wind #community
+
+Developed by Titanio Films 🎬
 ```
 
 ## Category
@@ -91,7 +180,7 @@ Sports
 
 ## Tags
 ```
-kitesurf, kiteboarding, esportes aquáticos, praias brasil, windsurf
+kitesurf, kiteboarding, water sports, brazil beaches, windsurf, kitesurfing
 ```
 
 ## Contact Email
@@ -109,20 +198,20 @@ https://github.com/contact703/kitesurf-brasil/blob/main/PRIVACY_POLICY.md
 ## 📸 Screenshots Necessários
 
 ### Phone Screenshots (mín 2, recomendado 8)
-1. Tela de Feed com posts
-2. Lista de Spots
-3. Detalhe de um Spot (Cumbuco ou Jeri)
-4. Classificados
-5. Chat com KiteBot
-6. Perfil do usuário
-7. Pousadas
-8. Fórum
+1. Language Selection Screen
+2. Feed com posts
+3. Lista de Spots
+4. Detalhe de um Spot (Cumbuco ou Jeri)
+5. Classificados / Marketplace
+6. Chat com KiteBot
+7. Perfil do usuário com Settings
+8. Pousadas / Accommodations
 
 ### Tablet Screenshots (opcional)
 - Mesmas telas em formato tablet
 
 ### Feature Graphic (1024x500)
-- Banner com logo, kite no ar, praia paradisíaca
+- Banner com logo KiteMe, kite no ar, praia paradisíaca
 
 ### App Icon (512x512)
 - Já configurado no projeto
@@ -175,4 +264,28 @@ Como o app tem login, criar conta de teste:
 | Password | Reviewer123! |
 | Instructions | "Use these credentials to login. Full access to all features." |
 
-**Criar no backend:** Adicionar esse usuário no seed.js ou criar manualmente.
+---
+
+## 📦 Build Info
+
+- **Package Name:** com.kiteme.app
+- **Version Name:** 3.0
+- **Version Code:** 4
+- **Min SDK:** 24 (Android 7.0)
+- **Target SDK:** 35 (Android 15)
+- **Keystore:** kiteme-release.keystore
+- **Key Alias:** kiteme
+
+---
+
+## 🔑 Keystore Info (CONFIDENCIAL)
+
+```
+Keystore: kiteme-release.keystore
+Alias: kiteme
+Store Password: kiteme2026
+Key Password: kiteme2026
+Validity: 10000 days (~27 years)
+```
+
+**IMPORTANTE:** Nunca perca este keystore! Sem ele, você não pode atualizar o app na Play Store.

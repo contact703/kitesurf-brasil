@@ -1,4 +1,4 @@
-package com.kitesurf.brasil.fragments
+package com.kiteme.app.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,10 +9,10 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.kitesurf.brasil.MainActivity
-import com.kitesurf.brasil.R
-import com.kitesurf.brasil.api.ApiClient
-import com.kitesurf.brasil.api.Conversation
+import com.kiteme.app.MainActivity
+import com.kiteme.app.R
+import com.kiteme.app.api.ApiClient
+import com.kiteme.app.api.Conversation
 import kotlinx.coroutines.*
 
 class MessagesFragment : Fragment() {
@@ -56,10 +56,11 @@ class MessagesFragment : Fragment() {
                     adapter.notifyDataSetChanged()
                     
                     emptyView.visibility = if (conversations.isEmpty()) View.VISIBLE else View.GONE
+                    emptyView.text = getString(R.string.messages_empty)
                 }
             } catch (e: Exception) {
                 emptyView.visibility = View.VISIBLE
-                emptyView.text = "Erro ao carregar mensagens"
+                emptyView.text = getString(R.string.messages_error)
             } finally {
                 progressBar.visibility = View.GONE
             }

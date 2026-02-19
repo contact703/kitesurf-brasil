@@ -1,4 +1,4 @@
-package com.kitesurf.brasil.fragments
+package com.kiteme.app.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,12 +8,11 @@ import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.kitesurf.brasil.MainActivity
-import com.kitesurf.brasil.R
-import com.kitesurf.brasil.api.ApiClient
-import com.kitesurf.brasil.api.Message
-import com.kitesurf.brasil.api.SendMessageRequest
+import com.kiteme.app.MainActivity
+import com.kiteme.app.R
+import com.kiteme.app.api.ApiClient
+import com.kiteme.app.api.Message
+import com.kiteme.app.api.SendMessageRequest
 import kotlinx.coroutines.*
 
 class ConversationFragment : Fragment() {
@@ -60,6 +59,7 @@ class ConversationFragment : Fragment() {
         txtTitle = view.findViewById(R.id.txt_title)
         
         txtTitle.text = otherUserName
+        inputMessage.hint = getString(R.string.chat_hint)
         
         view.findViewById<ImageButton>(R.id.btn_back).setOnClickListener {
             (activity as? MainActivity)?.navigateToMessages()
@@ -73,13 +73,11 @@ class ConversationFragment : Fragment() {
         
         btnSend.setOnClickListener { sendMessage() }
         
-        // Load existing messages if conversation exists
         loadMessages()
     }
     
     private fun loadMessages() {
-        // For new conversations, we need to first check if one exists
-        // This is simplified - in production, you'd need better handling
+        // Simplified - would load existing conversation
     }
     
     private fun sendMessage() {
@@ -99,14 +97,13 @@ class ConversationFragment : Fragment() {
                     ))
                 }
                 if (response.isSuccessful && response.body() != null) {
-                    // Add message locally
                     val newMessage = Message(
                         id = response.body()!!.id ?: 0,
                         conversation_id = response.body()!!.id ?: 0,
                         sender_id = MainActivity.currentUserId,
                         content = text,
                         created_at = "",
-                        sender_name = "Você",
+                        sender_name = getString(R.string.user),
                         sender_username = MainActivity.currentUsername,
                         sender_avatar = null
                     )
@@ -115,7 +112,7 @@ class ConversationFragment : Fragment() {
                     recyclerView.scrollToPosition(messages.size - 1)
                 }
             } catch (e: Exception) {
-                Toast.makeText(context, "Erro ao enviar mensagem", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, getString(R.string.messages_error), Toast.LENGTH_SHORT).show()
             } finally {
                 btnSend.isEnabled = true
             }

@@ -1,4 +1,4 @@
-package com.kitesurf.brasil.api
+package com.kiteme.app.api
 
 import retrofit2.http.*
 import retrofit2.Response

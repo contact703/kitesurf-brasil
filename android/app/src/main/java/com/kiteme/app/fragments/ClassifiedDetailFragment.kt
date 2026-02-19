@@ -1,17 +1,15 @@
-package com.kitesurf.brasil.fragments
+package com.kiteme.app.fragments
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
-import com.kitesurf.brasil.MainActivity
-import com.kitesurf.brasil.R
-import com.kitesurf.brasil.api.ApiClient
-import com.kitesurf.brasil.api.Classified
+import com.kiteme.app.MainActivity
+import com.kiteme.app.R
+import com.kiteme.app.api.ApiClient
+import com.kiteme.app.api.Classified
 import kotlinx.coroutines.*
 import java.text.NumberFormat
 import java.util.*
@@ -64,7 +62,7 @@ class ClassifiedDetailFragment : Fragment() {
                     displayClassified(view, response.body()!!)
                 }
             } catch (e: Exception) {
-                Toast.makeText(context, "Erro ao carregar anúncio", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, getString(R.string.classifieds_error), Toast.LENGTH_SHORT).show()
             } finally {
                 progressBar.visibility = View.GONE
             }
@@ -73,50 +71,51 @@ class ClassifiedDetailFragment : Fragment() {
     
     private fun displayClassified(view: View, item: Classified) {
         view.findViewById<TextView>(R.id.txt_title).text = item.title
-        view.findViewById<TextView>(R.id.txt_price).text = item.price?.let { currencyFormat.format(it) } ?: "Consultar"
+        view.findViewById<TextView>(R.id.txt_price).text = item.price?.let { currencyFormat.format(it) } ?: getString(R.string.classifieds_price_consult)
         view.findViewById<TextView>(R.id.txt_description).text = item.description ?: ""
         view.findViewById<TextView>(R.id.txt_category).text = getCategoryLabel(item.category)
         view.findViewById<TextView>(R.id.txt_condition).text = getConditionLabel(item.condition)
         view.findViewById<TextView>(R.id.txt_location).text = "📍 ${item.location ?: "Brasil"}"
-        view.findViewById<TextView>(R.id.txt_views).text = "👁 ${item.views_count} visualizações"
+        view.findViewById<TextView>(R.id.txt_views).text = "👁 ${item.views_count}"
         
         // Brand and size
         val details = StringBuilder()
-        item.brand?.let { details.append("Marca: $it\n") }
-        item.size?.let { details.append("Tamanho: $it\n") }
+        item.brand?.let { details.append("${getString(R.string.na)}: $it\n") }
+        item.size?.let { details.append("Size: $it\n") }
         view.findViewById<TextView>(R.id.txt_details).text = details.toString()
         
         // Seller info
         item.name?.let { name ->
-            view.findViewById<TextView>(R.id.txt_seller).text = "Vendedor: $name (@${item.username})"
+            view.findViewById<TextView>(R.id.txt_seller).text = "$name (@${item.username})"
             view.findViewById<LinearLayout>(R.id.layout_seller).setOnClickListener {
                 (activity as? MainActivity)?.navigateToProfile(item.user_id)
             }
         }
         
         // Contact button
+        view.findViewById<Button>(R.id.btn_contact).text = getString(R.string.classifieds_contact)
         view.findViewById<Button>(R.id.btn_contact).setOnClickListener {
-            (activity as? MainActivity)?.navigateToConversation(item.user_id, item.name ?: "Vendedor")
+            (activity as? MainActivity)?.navigateToConversation(item.user_id, item.name ?: getString(R.string.user))
         }
     }
     
     private fun getCategoryLabel(cat: String): String {
         return when (cat) {
             "kites" -> "🪁 Kite"
-            "pranchas" -> "🏄 Prancha"
-            "trapezios" -> "🎽 Trapézio"
-            "acessorios" -> "🔧 Acessório"
-            "roupas" -> "👕 Roupa"
-            "aulas" -> "📚 Aula"
+            "pranchas" -> getString(R.string.classifieds_boards)
+            "trapezios" -> getString(R.string.classifieds_harnesses)
+            "acessorios" -> getString(R.string.classifieds_accessories)
+            "roupas" -> getString(R.string.classifieds_clothes)
+            "aulas" -> getString(R.string.classifieds_lessons)
             else -> cat
         }
     }
     
     private fun getConditionLabel(cond: String?): String {
         return when (cond?.lowercase()) {
-            "novo" -> "✨ Novo"
-            "seminovo" -> "👍 Seminovo"
-            "usado" -> "📦 Usado"
+            "novo", "new" -> getString(R.string.condition_new)
+            "seminovo", "like new" -> getString(R.string.condition_like_new)
+            "usado", "used" -> getString(R.string.condition_used)
             else -> cond ?: ""
         }
     }

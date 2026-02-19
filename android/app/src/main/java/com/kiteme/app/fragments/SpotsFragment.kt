@@ -1,4 +1,4 @@
-package com.kitesurf.brasil.fragments
+package com.kiteme.app.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,10 +8,10 @@ import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.kitesurf.brasil.MainActivity
-import com.kitesurf.brasil.R
-import com.kitesurf.brasil.api.ApiClient
-import com.kitesurf.brasil.api.Spot
+import com.kiteme.app.MainActivity
+import com.kiteme.app.R
+import com.kiteme.app.api.ApiClient
+import com.kiteme.app.api.Spot
 import kotlinx.coroutines.*
 
 class SpotsFragment : Fragment() {
@@ -53,7 +53,7 @@ class SpotsFragment : Fragment() {
                     adapter.notifyDataSetChanged()
                 }
             } catch (e: Exception) {
-                Toast.makeText(context, "Erro ao carregar spots", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, getString(R.string.spots_error), Toast.LENGTH_SHORT).show()
             } finally {
                 progressBar.visibility = View.GONE
             }
@@ -87,24 +87,25 @@ class SpotsAdapter(
     
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val spot = spots[position]
+        val context = holder.itemView.context
         
         holder.name.text = spot.name
         holder.location.text = "📍 ${spot.location}"
-        holder.wind.text = "💨 ${spot.wind_direction ?: "N/A"}"
-        holder.months.text = "📅 ${spot.best_months ?: "Ano todo"}"
-        holder.difficulty.text = getDifficultyEmoji(spot.difficulty)
+        holder.wind.text = "💨 ${spot.wind_direction ?: context.getString(R.string.na)}"
+        holder.months.text = "📅 ${spot.best_months ?: context.getString(R.string.spots_all_year)}"
+        holder.difficulty.text = getDifficultyEmoji(context, spot.difficulty)
         holder.rating.text = "⭐ ${spot.rating} (${spot.rating_count})"
         
         holder.itemView.setOnClickListener { onClick(spot) }
     }
     
-    private fun getDifficultyEmoji(diff: String?): String {
+    private fun getDifficultyEmoji(context: android.content.Context, diff: String?): String {
         return when (diff?.lowercase()) {
-            "iniciante" -> "🟢 Iniciante"
-            "intermediário", "intermediario" -> "🟡 Intermediário"
-            "avançado", "avancado" -> "🔴 Avançado"
-            "todos" -> "🔵 Todos os níveis"
-            else -> "⚪ ${diff ?: "N/A"}"
+            "iniciante", "beginner" -> context.getString(R.string.level_beginner)
+            "intermediário", "intermediario", "intermediate" -> context.getString(R.string.level_intermediate)
+            "avançado", "avancado", "advanced" -> context.getString(R.string.level_advanced)
+            "todos", "all" -> context.getString(R.string.level_all)
+            else -> "⚪ ${diff ?: context.getString(R.string.na)}"
         }
     }
     

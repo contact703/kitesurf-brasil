@@ -5,6 +5,7 @@
     <color name="accent">#00CC88</color>
     <color name="background">#121212</color>
     <color name="surface">#1E1E1E</color>
+    <color name="card_background">#252525</color>
     <color name="text_primary">#FFFFFF</color>
     <color name="text_secondary">#B0B0B0</color>
     <color name="divider">#333333</color>

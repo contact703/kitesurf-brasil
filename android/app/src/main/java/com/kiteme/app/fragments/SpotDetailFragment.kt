@@ -1,4 +1,4 @@
-package com.kitesurf.brasil.fragments
+package com.kiteme.app.fragments
 
 import android.content.Intent
 import android.net.Uri
@@ -8,9 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
-import com.kitesurf.brasil.R
-import com.kitesurf.brasil.api.ApiClient
-import com.kitesurf.brasil.api.Spot
+import com.kiteme.app.R
+import com.kiteme.app.api.ApiClient
+import com.kiteme.app.api.Spot
 import kotlinx.coroutines.*
 import org.json.JSONArray
 
@@ -61,7 +61,7 @@ class SpotDetailFragment : Fragment() {
                     displaySpot(view, response.body()!!)
                 }
             } catch (e: Exception) {
-                Toast.makeText(context, "Erro ao carregar spot", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, getString(R.string.spots_error), Toast.LENGTH_SHORT).show()
             } finally {
                 progressBar.visibility = View.GONE
             }
@@ -72,10 +72,10 @@ class SpotDetailFragment : Fragment() {
         view.findViewById<TextView>(R.id.txt_name).text = spot.name
         view.findViewById<TextView>(R.id.txt_location).text = "📍 ${spot.location}"
         view.findViewById<TextView>(R.id.txt_description).text = spot.description ?: ""
-        view.findViewById<TextView>(R.id.txt_wind).text = "💨 Vento: ${spot.wind_direction ?: "N/A"}"
-        view.findViewById<TextView>(R.id.txt_months).text = "📅 Melhor época: ${spot.best_months ?: "Ano todo"}"
+        view.findViewById<TextView>(R.id.txt_wind).text = "${getString(R.string.spots_wind_direction)}: ${spot.wind_direction ?: getString(R.string.na)}"
+        view.findViewById<TextView>(R.id.txt_months).text = "${getString(R.string.spots_best_months)}: ${spot.best_months ?: getString(R.string.spots_all_year)}"
         view.findViewById<TextView>(R.id.txt_difficulty).text = getDifficultyText(spot.difficulty)
-        view.findViewById<TextView>(R.id.txt_rating).text = "⭐ ${spot.rating} (${spot.rating_count} avaliações)"
+        view.findViewById<TextView>(R.id.txt_rating).text = "⭐ ${spot.rating} (${spot.rating_count} ${getString(R.string.spots_reviews)})"
         
         // Amenities
         try {
@@ -99,11 +99,11 @@ class SpotDetailFragment : Fragment() {
     
     private fun getDifficultyText(diff: String?): String {
         return when (diff?.lowercase()) {
-            "iniciante" -> "🟢 Dificuldade: Iniciante - Perfeito para aprender!"
-            "intermediário", "intermediario" -> "🟡 Dificuldade: Intermediário - Requer experiência"
-            "avançado", "avancado" -> "🔴 Dificuldade: Avançado - Para experts"
-            "todos" -> "🔵 Dificuldade: Todos os níveis"
-            else -> "Dificuldade: ${diff ?: "N/A"}"
+            "iniciante", "beginner" -> getString(R.string.level_beginner)
+            "intermediário", "intermediario", "intermediate" -> getString(R.string.level_intermediate)
+            "avançado", "avancado", "advanced" -> getString(R.string.level_advanced)
+            "todos", "all" -> getString(R.string.level_all)
+            else -> "${getString(R.string.spots_difficulty)}: ${diff ?: getString(R.string.na)}"
         }
     }
     

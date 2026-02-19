@@ -1,8 +1,126 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">KiteSurf Brasil</string>
-    <string name="nav_chat">Chat</string>
+    <!-- App Name -->
+    <string name="app_name">KiteMe</string>
+    
+    <!-- Navigation -->
+    <string name="nav_feed">Feed</string>
     <string name="nav_spots">Spots</string>
     <string name="nav_classifieds">Classificados</string>
+    <string name="nav_chat">Chat</string>
     <string name="nav_profile">Perfil</string>
+    
+    <!-- Language Selection -->
+    <string name="language_select_title">Escolha seu idioma</string>
+    <string name="language_select_subtitle">Você pode mudar isso depois nas configurações</string>
+    <string name="language_portuguese">Português (BR)</string>
+    <string name="language_english">English</string>
+    <string name="language_continue">Continuar</string>
+    
+    <!-- Settings -->
+    <string name="settings">Configurações</string>
+    <string name="settings_language">Idioma</string>
+    <string name="settings_notifications">Notificações</string>
+    <string name="settings_about">Sobre o App</string>
+    <string name="settings_privacy">Política de Privacidade</string>
+    <string name="settings_logout">Sair</string>
+    <string name="settings_version">Versão</string>
+    
+    <!-- Chat / KiteBot -->
+    <string name="chat_welcome">🏄 Olá! Eu sou o KiteBot, seu assistente de kitesurf!\n\nPosso te ajudar com:\n• Dicas de equipamentos\n• Informações sobre spots\n• Técnicas e manobras\n• Condições de vento\n\nFale ou digite sua pergunta!</string>
+    <string name="chat_hint">Digite sua mensagem...</string>
+    <string name="chat_error">Ops! Não consegui processar sua mensagem. Tente novamente!</string>
+    <string name="chat_listening">🎤 Ouvindo...</string>
+    <string name="chat_processing">⏳ Processando...</string>
+    <string name="chat_voice_error_no_match">Não entendi, tente novamente</string>
+    <string name="chat_voice_error_network">Erro de conexão</string>
+    <string name="chat_voice_error_generic">Erro ao reconhecer voz</string>
+    <string name="chat_sound_on">🔊 Som ativado</string>
+    <string name="chat_sound_off">🔇 Som desativado</string>
+    
+    <!-- Feed -->
+    <string name="feed_title">Feed</string>
+    <string name="feed_messages">Mensagens</string>
+    <string name="feed_forum">Fórum</string>
+    <string name="feed_accommodations">Pousadas</string>
+    <string name="feed_empty">Nenhum post ainda</string>
+    <string name="feed_error">Erro ao carregar feed</string>
+    
+    <!-- Spots -->
+    <string name="spots_title">Spots</string>
+    <string name="spots_empty">Nenhum spot encontrado</string>
+    <string name="spots_error">Erro ao carregar spots</string>
+    <string name="spots_best_months">📅 Melhores meses</string>
+    <string name="spots_wind_direction">💨 Direção do vento</string>
+    <string name="spots_difficulty">Dificuldade</string>
+    <string name="spots_all_year">Ano todo</string>
+    <string name="spots_reviews">avaliações</string>
+    
+    <!-- Difficulty Levels -->
+    <string name="level_beginner">🟢 Iniciante</string>
+    <string name="level_intermediate">🟡 Intermediário</string>
+    <string name="level_advanced">🔴 Avançado</string>
+    <string name="level_professional">🏆 Profissional</string>
+    <string name="level_all">🔵 Todos os níveis</string>
+    
+    <!-- Classifieds -->
+    <string name="classifieds_title">Classificados</string>
+    <string name="classifieds_all">Todos</string>
+    <string name="classifieds_kites">🪁 Kites</string>
+    <string name="classifieds_boards">🏄 Pranchas</string>
+    <string name="classifieds_harnesses">🎽 Trapézios</string>
+    <string name="classifieds_accessories">🔧 Acessórios</string>
+    <string name="classifieds_clothes">👕 Roupas</string>
+    <string name="classifieds_lessons">📚 Aulas</string>
+    <string name="classifieds_empty">Nenhum anúncio encontrado</string>
+    <string name="classifieds_error">Erro ao carregar classificados</string>
+    <string name="classifieds_contact">Entrar em contato</string>
+    <string name="classifieds_price_consult">Consultar</string>
+    
+    <!-- Conditions -->
+    <string name="condition_new">✨ Novo</string>
+    <string name="condition_like_new">👍 Seminovo</string>
+    <string name="condition_used">📦 Usado</string>
+    
+    <!-- Profile -->
+    <string name="profile_title">Perfil</string>
+    <string name="profile_followers">Seguidores</string>
+    <string name="profile_following">Seguindo</string>
+    <string name="profile_posts">Posts</string>
+    <string name="profile_follow">Seguir</string>
+    <string name="profile_following_btn">Seguindo</string>
+    <string name="profile_message">Mensagem</string>
+    <string name="profile_edit">Editar Perfil</string>
+    <string name="profile_error">Erro ao carregar perfil</string>
+    <string name="profile_follow_error">Erro ao seguir</string>
+    
+    <!-- Forum -->
+    <string name="forum_title">Fórum</string>
+    <string name="forum_empty">Nenhum tópico encontrado</string>
+    <string name="forum_error">Erro ao carregar fórum</string>
+    <string name="forum_new_topic">Novo Tópico</string>
+    <string name="forum_replies">respostas</string>
+    
+    <!-- Messages -->
+    <string name="messages_title">Mensagens</string>
+    <string name="messages_empty">Nenhuma conversa ainda</string>
+    <string name="messages_error">Erro ao carregar mensagens</string>
+    
+    <!-- Accommodations -->
+    <string name="accommodations_title">Pousadas</string>
+    <string name="accommodations_empty">Nenhuma pousada encontrada</string>
+    <string name="accommodations_error">Erro ao carregar pousadas</string>
+    <string name="accommodations_contact">Contato</string>
+    <string name="accommodations_per_night">/ noite</string>
+    
+    <!-- Common -->
+    <string name="loading">Carregando...</string>
+    <string name="error">Erro</string>
+    <string name="retry">Tentar novamente</string>
+    <string name="cancel">Cancelar</string>
+    <string name="save">Salvar</string>
+    <string name="delete">Excluir</string>
+    <string name="confirm">Confirmar</string>
+    <string name="user">Usuário</string>
+    <string name="na">N/A</string>
 </resources>

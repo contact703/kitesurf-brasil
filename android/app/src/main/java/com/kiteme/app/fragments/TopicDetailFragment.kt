@@ -1,4 +1,4 @@
-package com.kitesurf.brasil.fragments
+package com.kiteme.app.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,9 +9,9 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.kitesurf.brasil.MainActivity
-import com.kitesurf.brasil.R
-import com.kitesurf.brasil.api.*
+import com.kiteme.app.MainActivity
+import com.kiteme.app.R
+import com.kiteme.app.api.*
 import kotlinx.coroutines.*
 
 class TopicDetailFragment : Fragment() {
@@ -55,7 +55,6 @@ class TopicDetailFragment : Fragment() {
             adapter = this@TopicDetailFragment.adapter
         }
         
-        // Reply button
         view.findViewById<Button>(R.id.btn_reply).setOnClickListener {
             showReplyDialog(view)
         }
@@ -76,7 +75,7 @@ class TopicDetailFragment : Fragment() {
                     displayTopic(view, response.body()!!)
                 }
             } catch (e: Exception) {
-                Toast.makeText(context, "Erro ao carregar tópico", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, getString(R.string.forum_error), Toast.LENGTH_SHORT).show()
             } finally {
                 progressBar.visibility = View.GONE
             }
@@ -97,31 +96,30 @@ class TopicDetailFragment : Fragment() {
                 .into(view.findViewById(R.id.img_avatar))
         }
         
-        // Load replies
         replies.clear()
         replies.addAll(topic.replies)
         adapter.notifyDataSetChanged()
         
-        view.findViewById<TextView>(R.id.txt_replies_count).text = "${replies.size} respostas"
+        view.findViewById<TextView>(R.id.txt_replies_count).text = "${replies.size} ${getString(R.string.forum_replies)}"
     }
     
     private fun showReplyDialog(view: View) {
         val input = EditText(context).apply {
-            hint = "Escreva sua resposta..."
+            hint = getString(R.string.chat_hint)
             minLines = 3
             setPadding(32, 32, 32, 32)
         }
         
         android.app.AlertDialog.Builder(requireContext())
-            .setTitle("Responder")
+            .setTitle(getString(R.string.profile_message))
             .setView(input)
-            .setPositiveButton("Enviar") { _, _ ->
+            .setPositiveButton(getString(R.string.save)) { _, _ ->
                 val content = input.text.toString().trim()
                 if (content.isNotEmpty()) {
                     sendReply(content, view)
                 }
             }
-            .setNegativeButton("Cancelar", null)
+            .setNegativeButton(getString(R.string.cancel), null)
             .show()
     }
     
@@ -132,11 +130,11 @@ class TopicDetailFragment : Fragment() {
                     ApiClient.api.replyTopic(topicId, ReplyRequest(MainActivity.currentUserId, content))
                 }
                 if (response.isSuccessful) {
-                    Toast.makeText(context, "Resposta enviada!", Toast.LENGTH_SHORT).show()
-                    loadTopic(view) // Reload to show new reply
+                    Toast.makeText(context, "✓", Toast.LENGTH_SHORT).show()
+                    loadTopic(view)
                 }
             } catch (e: Exception) {
-                Toast.makeText(context, "Erro ao enviar resposta", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, getString(R.string.forum_error), Toast.LENGTH_SHORT).show()
             }
         }
     }
