@@ -7,8 +7,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 object ApiClient {
-    // Use 10.0.2.2 for emulator, localhost for real device with adb reverse
-    private const val BASE_URL = "http://localhost:3000/api/"
+    // Backend online via localhost.run tunnel
+    private const val BASE_URL = "https://e44e9591f02e93.lhr.life/api/"
     
     private val loggingInterceptor = HttpLoggingInterceptor().apply {
         level = HttpLoggingInterceptor.Level.BODY
