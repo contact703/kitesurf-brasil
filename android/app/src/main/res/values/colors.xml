@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primary">#0066CC</color>
-    <color name="primary_dark">#004C99</color>
-    <color name="accent">#00CC88</color>
+    <!-- Kite-me Brand Colors -->
+    <color name="primary">#1D4E5F</color>
+    <color name="primary_dark">#153A47</color>
+    <color name="accent">#3DBDB5</color>
     <color name="background">#121212</color>
     <color name="surface">#1E1E1E</color>
     <color name="card_background">#252525</color>
@@ -15,7 +16,7 @@
     <color name="error">#FF5252</color>
     <color name="warning">#FFC107</color>
     <color name="message_bot">#2A2A2A</color>
-    <color name="message_user">#0066CC</color>
+    <color name="message_user">#1D4E5F</color>
     <color name="ic_launcher_background">#F8F9FA</color>
     <color name="splash_background">#F8F9FA</color>
 </resources>

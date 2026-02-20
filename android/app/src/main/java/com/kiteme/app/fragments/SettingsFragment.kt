@@ -85,9 +85,9 @@ class SettingsFragment : Fragment() {
     
     private fun showAboutDialog() {
         AlertDialog.Builder(requireContext())
-            .setTitle("KiteMe")
+            .setTitle("Kite-me")
             .setMessage("${getString(R.string.settings_version)}: 3.0\n\n" +
-                    "KiteMe is a social network for kitesurfing enthusiasts.\n\n" +
+                    "Kite-me is a social network for kitesurfing enthusiasts.\n\n" +
                     "Find spots, buy/sell equipment, chat with our AI assistant KiteBot, and connect with the community!\n\n" +
                     "© 2026 Titanio Films")
             .setPositiveButton("OK", null)

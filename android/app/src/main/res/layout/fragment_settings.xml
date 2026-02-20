@@ -154,7 +154,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="KiteMe"
+                android:text="Kite-me"
                 android:textColor="@color/primary"
                 android:textSize="20sp"
                 android:textStyle="bold" />

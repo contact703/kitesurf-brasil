@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      width: 1024px;
+      height: 500px;
+      overflow: hidden;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+    
+    .container {
+      width: 1024px;
+      height: 500px;
+      background: linear-gradient(135deg, #134E4A 0%, #0F766E 30%, #14B8A6 60%, #2DD4BF 100%);
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    /* Ocean wave pattern overlay */
+    .waves {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 180px;
+      opacity: 0.15;
+    }
+    
+    .wave {
+      position: absolute;
+      width: 200%;
+      height: 100%;
+      background: repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 50px,
+        rgba(255,255,255,0.1) 50px,
+        rgba(255,255,255,0.1) 100px
+      );
+    }
+    
+    .wave1 {
+      bottom: 0;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%23ffffff' fill-opacity='0.2' d='M0,224L48,213.3C96,203,192,181,288,181.3C384,181,480,203,576,224C672,245,768,267,864,250.7C960,235,1056,181,1152,165.3C1248,149,1344,171,1392,181.3L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E") no-repeat;
+      background-size: cover;
+      height: 150px;
+    }
+    
+    .wave2 {
+      bottom: -20px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%23ffffff' fill-opacity='0.1' d='M0,160L48,176C96,192,192,224,288,218.7C384,213,480,171,576,165.3C672,160,768,192,864,197.3C960,203,1056,181,1152,165.3C1248,149,1344,139,1392,133.3L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E") no-repeat;
+      background-size: cover;
+      height: 180px;
+    }
+    
+    /* Decorative circles (sun/beach vibe) */
+    .sun {
+      position: absolute;
+      top: 30px;
+      right: 80px;
+      width: 120px;
+      height: 120px;
+      background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.1) 50%, transparent 70%);
+      border-radius: 50%;
+    }
+    
+    /* Flying kites decoration */
+    .kite-deco {
+      position: absolute;
+      opacity: 0.15;
+    }
+    
+    .kite1 {
+      top: 40px;
+      left: 60px;
+      width: 80px;
+      height: 60px;
+      border-left: 40px solid transparent;
+      border-right: 40px solid transparent;
+      border-bottom: 60px solid white;
+      transform: rotate(-20deg);
+    }
+    
+    .kite2 {
+      top: 80px;
+      right: 250px;
+      width: 50px;
+      height: 40px;
+      border-left: 25px solid transparent;
+      border-right: 25px solid transparent;
+      border-bottom: 40px solid white;
+      transform: rotate(15deg);
+    }
+    
+    /* Main content */
+    .content {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 60px;
+      z-index: 10;
+      position: relative;
+    }
+    
+    .logo-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    /* Logo icon recreation */
+    .logo-icon {
+      width: 200px;
+      height: 200px;
+      position: relative;
+      margin-bottom: 10px;
+    }
+    
+    .logo-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 4px 20px rgba(0,0,0,0.3));
+    }
+    
+    /* If no image, use SVG recreation */
+    .logo-svg {
+      width: 180px;
+      height: 180px;
+    }
+    
+    .tagline {
+      color: white;
+      font-size: 22px;
+      font-weight: 300;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-top: 20px;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    }
+    
+    .features {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      color: white;
+    }
+    
+    .feature {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      font-size: 20px;
+      font-weight: 500;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+    
+    .feature-icon {
+      width: 36px;
+      height: 36px;
+      background: rgba(255,255,255,0.25);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      backdrop-filter: blur(10px);
+    }
+    
+    /* Dotted line decoration */
+    .line-deco {
+      position: absolute;
+      top: 60px;
+      left: 100px;
+      width: 2px;
+      height: 100px;
+      background: repeating-linear-gradient(
+        to bottom,
+        rgba(255,255,255,0.3),
+        rgba(255,255,255,0.3) 5px,
+        transparent 5px,
+        transparent 10px
+      );
+      transform: rotate(30deg);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Decorative elements -->
+    <div class="sun"></div>
+    <div class="kite-deco kite1"></div>
+    <div class="kite-deco kite2"></div>
+    <div class="line-deco"></div>
+    
+    <!-- Wave overlays -->
+    <div class="waves">
+      <div class="wave wave1"></div>
+      <div class="wave wave2"></div>
+    </div>
+    
+    <!-- Main content -->
+    <div class="content">
+      <div class="logo-section">
+        <!-- Logo SVG recreation based on the brand -->
+        <svg class="logo-svg" viewBox="0 0 200 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Kite shape -->
+          <path d="M100 20 C140 40, 160 80, 140 120 C120 100, 100 90, 80 100 C60 80, 80 40, 100 20Z" fill="white" opacity="0.95"/>
+          <path d="M80 100 C60 120, 50 160, 70 180 L90 140 C85 130, 82 115, 80 100Z" fill="white" opacity="0.9"/>
+          <!-- Surfer figure -->
+          <path d="M90 140 C100 150, 110 160, 130 155 L140 170 C110 180, 80 175, 70 180 L90 140Z" fill="white" opacity="0.85"/>
+          <path d="M130 155 L150 145 L140 170 Z" fill="white" opacity="0.8"/>
+        </svg>
+        
+        <!-- Brand name -->
+        <svg width="220" height="50" viewBox="0 0 220 50">
+          <text x="0" y="38" font-family="Segoe UI, system-ui, sans-serif" font-size="42" font-weight="400" fill="white" style="letter-spacing: 1px">
+            <tspan fill="white">Kite</tspan><tspan fill="#A7F3D0">-</tspan><tspan fill="white">me</tspan>
+          </text>
+        </svg>
+        
+        <div class="tagline">Ride the Wind</div>
+      </div>
+      
+      <div class="features">
+        <div class="feature">
+          <div class="feature-icon">🌊</div>
+          <span>Find the Best Spots</span>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">💨</div>
+          <span>Real-time Wind Data</span>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">🪁</div>
+          <span>Connect with Riders</span>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">📍</div>
+          <span>Track Your Sessions</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
