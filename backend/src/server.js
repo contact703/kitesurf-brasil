@@ -12,6 +12,7 @@ const feedRoutes = require('./routes/feed');
 const messagesRoutes = require('./routes/messages');
 const forumRoutes = require('./routes/forum');
 const accommodationsRoutes = require('./routes/accommodations');
+const authRoutes = require('./routes/auth');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -24,6 +25,7 @@ app.use(express.json({ limit: '10mb' }));
 initDatabase();
 
 // Routes
+app.use('/api/auth', authRoutes);
 app.use('/api/chat', chatRoutes);
 app.use('/api/spots', spotsRoutes);
 app.use('/api/classifieds', classifiedsRoutes);
