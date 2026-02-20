@@ -17,4 +17,5 @@
     <color name="message_bot">#2A2A2A</color>
     <color name="message_user">#0066CC</color>
     <color name="ic_launcher_background">#F8F9FA</color>
+    <color name="splash_background">#F8F9FA</color>
 </resources>

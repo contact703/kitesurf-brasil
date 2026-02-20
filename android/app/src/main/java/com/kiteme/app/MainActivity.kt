@@ -23,6 +23,8 @@ class MainActivity : AppCompatActivity() {
     }
     
     override fun onCreate(savedInstanceState: Bundle?) {
+        // Switch from splash theme to app theme
+        setTheme(R.style.Theme_KiteMe)
         super.onCreate(savedInstanceState)
         
         // Check if first launch - show language selection

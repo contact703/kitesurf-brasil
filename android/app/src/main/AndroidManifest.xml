@@ -24,11 +24,11 @@
             android:exported="false"
             android:theme="@style/Theme.KiteMe" />
 
-        <!-- Main Activity -->
+        <!-- Main Activity with Splash Screen -->
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:theme="@style/Theme.KiteMe">
+            android:theme="@style/Theme.KiteMe.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
